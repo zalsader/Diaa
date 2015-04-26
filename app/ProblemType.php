@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class Content extends Model {
+class ProblemType extends Model {
 
 	//
 

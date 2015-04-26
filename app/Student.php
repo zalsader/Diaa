@@ -7,7 +7,7 @@ use App\User;
 class Student extends User {
 
   protected $singleTableField = 'student';
-  protected $persisted = ['educational_degree', 'parent_id'];
+  protected $persisted = ['educational_degree', 'parent_id', 'school'];
 
   function __construct($attributes = array())
   {

@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration {
 			$table->date('birth_date');
 			$table->string('gender');
 			$table->string('educational_degree')->nullable();
+			$table->string('school')->nullable();
 			$table->integer('parent_id')->unsigned()->nullable();
 			$table->string('type');
 			$table->integer('country_id')->unsigned();
