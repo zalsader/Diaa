@@ -7,7 +7,7 @@
 
 
             <h1>
-                <a href="topic/{{$topic->id}}">{{$topic->title}}</a></h1>
+                <a href="{{route('course.topic.show',array($topic->course->permalink,$topic->id))}}">{{$topic->title}}</a></h1>
             <p>{{$topic->released_on}}</p>
             </hr>
 

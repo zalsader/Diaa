@@ -85,7 +85,7 @@ class CourseController extends Controller {
             'model'=>$course
         ])
             ->remove('Create')
-            ->add('edit', 'submit', [
+            ->add('Update', 'submit', [
                 'attr' => ['class' => 'btn btn-primary']
             ]);
         $deleteForm = $formBuilder->create('App\Forms\DeleteForm', [

@@ -16,6 +16,7 @@ Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
 Route::resource('course','CourseController');
 Route::resource('topic','TopicController');
+Route::resource('course.topic', 'CourseTopicController');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

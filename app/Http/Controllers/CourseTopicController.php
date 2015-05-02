@@ -2,23 +2,23 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Input;
-use Kris\LaravelFormBuilder\FormBuilder;
 use App\Topic;
-
+use App\Course;
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Form;
-class TopicController extends Controller {
+use Kris\LaravelFormBuilder\FormBuilder;
+class CourseTopicController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($permalink)
 	{
-        $topics = Topic::all();
+        $course = Course::where('permalink',$permalink)->firstOrFail();
 
+        $topics = $course->topics;
         return view('topic.index',compact('topics'));
 		//
 	}
@@ -28,55 +28,54 @@ class TopicController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(FormBuilder $formBuilder)
-	{
-        $course_id = Input::get('course_id');
-
+    public function create(FormBuilder $formBuilder,$permalink)
+    {
+        $course = Course::where('permalink',$permalink)->firstOrFail();
         $form = $formBuilder->create('App\Forms\TopicForm', [
             'method' => 'POST',
-            'url' => route('topic.store')
+            'url' => route('course.topic.store')
         ])->add('course_id','hidden',[
-            'default_value' => $course_id
+            'default_value' => $course->id
         ]);
 
 
         return view('topic.create', compact('form'));
-		//
-	}
+        //
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(Request $request)
-	{
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(Request $request)
+    {
         Topic::create($request->all()) ;
-        return redirect('topic/create');
-		//
-	}
+        return redirect('course');
+        //
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{       $topic = Topic::findOrFail($id);
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function show($permalink,$id)
+    {       $topic = Topic::findOrFail($id);
 
         return view('topic.show',compact('topic'));
-		//
-	}
+        //
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id,FormBuilder $formBuilder)
-	{
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function edit($permalink,$id,FormBuilder $formBuilder)
+    {
         $topic = Topic::findOrFail($id);
 
         $form = $formBuilder->create('App\Forms\TopicForm', [
@@ -94,37 +93,38 @@ class TopicController extends Controller {
 
         ]);
         return view('topic.edit',compact('form','deleteForm','permalink'));
-		//
-	}
+        //
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update($id,Request $request)
-	{
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($permalink,$id,Request $request)
+    {
         $topic = Topic::findOrFail($id);
 
         $topic->update($request->all());
         return redirect('topic');
 
         //
-	}
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($permalink,$id)
+    {
         $topic = Topic::findOrFail($id);
         $topic->delete();
         return redirect('topic');
-		//
-	}
+        //
+    }
+
 
 }
