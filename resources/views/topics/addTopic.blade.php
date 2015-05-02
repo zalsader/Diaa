@@ -18,7 +18,7 @@
 
         {!!Form::submit('Add Topic',['class'=>'btn btn-primary form-control'] ) !!}
     </div>
-    
+
     {!! Form::close() !!}
 
     @if($errors->any())

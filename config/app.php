@@ -137,6 +137,7 @@ return [
 		'Illuminate\View\ViewServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
 
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -145,7 +146,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+        'Kris\LaravelFormBuilder\FormBuilderServiceProvider',
 		/*
 		 * Vendor Providers
 		 */
@@ -200,6 +201,8 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
         'Form'      => 'Illuminate\Html\FormFacade',
-        'Html'      => 'Illuminate\Html\HtmlFacade'
+        'Html'      => 'Illuminate\Html\HtmlFacade',
+        'FormBuilder' => 'Kris\LaravelFormBuilder\Facades\FormBuilder',
+
 ],
     ];

@@ -8,7 +8,9 @@ class Course extends Model {
     'starts_on',
     'ends_on',
     'description',
-    'video_resource_id'
+    'video_resource_id',
+     'permalink',
+     'img_resource_id'
 
 
 

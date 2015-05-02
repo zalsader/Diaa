@@ -14,11 +14,7 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
-Route::get('courses', 'CoursesController@index');
-Route::post('courses', 'CoursesController@store');
-Route::get('create_course', 'CoursesController@createCourse');
-Route::get('add_topic', 'topicController@add_topic');
-Route::post('add_topic', 'topicController@store');
+Route::resource('course','CourseController');
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
