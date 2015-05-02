@@ -1,11 +1,12 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Baum\Node;
 
-class Collaboration extends Model {
+class Collaboration extends Node {
 
 	protected $fillable = ['content'];
-
+	protected $scoped = ['resource_id', 'thread_id'];
 
 	public function type()
 	{

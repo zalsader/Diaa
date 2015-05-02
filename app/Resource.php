@@ -1,10 +1,12 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Baum\Node;
 
-class Resource extends Model {
+class Resource extends Node {
 
 	protected $fillable = ['title', 'URI','released_on'];
+	protected $scoped = ['topic_id'];
 
 	public function type()
 	{

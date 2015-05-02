@@ -149,6 +149,7 @@ return [
 		 * Vendor Providers
 		 */
 		'Zizaco\Entrust\EntrustServiceProvider',
+		'Baum\Providers\BaumServiceProvider',
 
 	],
 

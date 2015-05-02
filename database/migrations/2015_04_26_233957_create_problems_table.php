@@ -28,7 +28,7 @@ class CreateProblemsTable extends Migration {
 			$table->integer('max_submission');
 			$table->integer('max_duration');
 			$table->integer('weight');
-			$table->integer('resource_id')->nullable();
+			$table->integer('resource_id');
 			$table->timestamps();
 		});
 	}
