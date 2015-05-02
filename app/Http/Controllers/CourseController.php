@@ -4,7 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Course;
-use App\Forms\CourseCreateForm;
+
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Form;
 
@@ -18,9 +18,10 @@ class CourseController extends Controller {
 	public function index()
 	{
 
+
         $courses = Course::all();
         return view('course.index',compact('courses'));
-		//
+	//
 	}
 
 	/**
@@ -44,7 +45,7 @@ class CourseController extends Controller {
 	public function create(FormBuilder $formBuilder)
 	{
 
-        $form = $formBuilder->create('App\Forms\CourseCreateForm', [
+        $form = $formBuilder->create('App\Forms\CourseForm', [
             'method' => 'POST',
             'url' => route('course.store')
         ]);
@@ -76,9 +77,9 @@ class CourseController extends Controller {
 	public function edit(FormBuilder $formBuilder,$permalink)
 
 	{
-         $course = Course::where('permalink',$permalink)->firstOrFail();
+         $course = Course::wherePermalink($permalink)->firstOrFail();
 
-        $form = $formBuilder->create('App\Forms\CourseCreateForm', [
+        $form = $formBuilder->create('App\Forms\CourseForm', [
             'method' => 'PUT',
             'url' => route('course.update',$permalink),
             'model'=>$course
@@ -87,8 +88,12 @@ class CourseController extends Controller {
             ->add('edit', 'submit', [
                 'attr' => ['class' => 'btn btn-primary']
             ]);
+        $deleteForm = $formBuilder->create('App\Forms\DeleteForm', [
+            'method' => 'DELETE',
+            'url' => route('course.destroy',$course->permalink)
 
-        return view('course.edit', compact('form','permalink'));
+        ]);
+        return view('course.edit',compact('form','deleteForm','permalink'));
 		//
 	}
 
@@ -100,7 +105,7 @@ class CourseController extends Controller {
 	 */
 	public function update($permalink,Request  $request)
 	{
-        $course = Course::where('permalink',$permalink)->firstOrFail();
+        $course = Course::wherePermalink($permalink)->firstOrFail();
 
        $course->update($request->all());
         return redirect('course');
@@ -113,14 +118,13 @@ class CourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($permalink)
 	{
-        dd($id);
-        return "yes";
-      /*  $course= Course::findOrFail($id);
+        $course = Course::wherePermalink($permalink)->firstOrFail();
+
         $course->delete();
-*/
-		//
+        return redirect('course');
+	//
 	}
 
 

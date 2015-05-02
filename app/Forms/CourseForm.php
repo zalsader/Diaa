@@ -2,7 +2,7 @@
 
 use Kris\LaravelFormBuilder\Form;
 
-class courseCreateForm extends Form
+class courseForm extends Form
 {
     public function buildForm()
     {
