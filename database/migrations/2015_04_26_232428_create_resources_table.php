@@ -18,8 +18,10 @@ class CreateResourcesTable extends Migration {
 			$table->timestamps();
 			$table->string('title');
 			$table->string('URI');
-			$table->integer('parent_id')->unsigned();
-			$table->integer('child_number');
+			$table->integer('parent_id')->unsigned()->nullable();
+			$table->integer('lft')->nullable();
+			$table->integer('rgt')->nullable();
+			$table->integer('depth')->nullable();
 			$table->dateTime('released_on');
 			$table->integer('topic_id')->unsigned()->nullable();
 			$table->integer('resource_type_id')->unsigned();

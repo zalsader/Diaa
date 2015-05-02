@@ -19,7 +19,8 @@ class CreateCoursesTable extends Migration {
 			$table->dateTime('starts_on');
 			$table->dateTime('ends_on');
 			$table->text('description');
-			$table->integer('video_resource_id')->unsigned();
+			$table->integer('video_resource_id')->unsigned()->nullable();
+			$table->integer('image_resource_id')->unsigned();
 			$table->timestamps();
 		});
 		/**

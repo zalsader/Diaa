@@ -15,6 +15,17 @@ class CreateCollaborationsTable extends Migration {
 		Schema::create('collaborations', function(Blueprint $table)
 		{
 			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('collaboration_type_id')->unsigned();
+			$table->foreign('collaboration_type_id')->references('id')->on('collaboration_types');
+			$table->text('content');
+			$table->integer('parent_id')->unsigned()->nullable();
+			$table->integer('lft')->nullable();
+			$table->integer('rgt')->nullable();
+			$table->integer('depth')->nullable();
+			$table->integer('resource_id')->unsigned()->nullable();
+			$table->integer('thread_id')->unsigned()->nullable();
 			$table->timestamps();
 		});
 	}
