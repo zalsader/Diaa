@@ -17,4 +17,14 @@ class Resource extends Node {
 	{
 		return $this->hasMany('\App\Problem');
 	}
+
+	public function topic()
+	{
+		return $this->belongsTo('\App\Topic');
+	}
+
+	public function scopeByTopic($query, $topicId)
+	{
+		return $query->where('topic_id', '=', $topicId);
+	}
 }

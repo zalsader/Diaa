@@ -12,12 +12,12 @@ class Student extends User {
   function __construct($attributes = array())
   {
     parent::__construct($attributes);
-    $student_role = Role::byName('student')->first();
+    $student_role = Role::whereName('student')->first();
     $this->attachRole($student_role);
   }
 
   public function parent()
   {
-    return $this->belongsTo('App\Parent');
+    return $this->belongsTo('App\ParentAccount');
   }
 }

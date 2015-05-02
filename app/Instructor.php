@@ -12,7 +12,7 @@ class Instructor extends User {
   function __construct($attributes = array())
   {
     parent::__construct($attributes);
-    $instructor_role = Role::byName('instructor')->first();
+    $instructor_role = Role::whereName('instructor')->first();
     $this->attachRole($instructor_role);
   }
 

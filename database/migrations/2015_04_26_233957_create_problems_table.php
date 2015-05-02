@@ -21,7 +21,6 @@ class CreateProblemsTable extends Migration {
 			$table->integer('rgt')->nullable();
 			$table->integer('depth')->nullable();
 			$table->integer('problem_type_id')->unsigned();
-			$table->foreign('problem_type_id')->references('id')->on('problem_types');
 			$table->dateTime('released_on');
 			$table->dateTime('soft_deadline');
 			$table->dateTime('hard_deadline');

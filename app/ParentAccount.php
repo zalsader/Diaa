@@ -12,7 +12,7 @@ class ParentAccount extends User {
   function __construct($attributes = array())
   {
     parent::__construct($attributes);
-    $parentAccount_role = Role::byName('parentAccount')->first();
+    $parentAccount_role = Role::whereName('parentAccount')->first();
     $this->attachRole($parentAccount_role);
   }
 

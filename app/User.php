@@ -37,4 +37,9 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+	public function country()
+	{
+		return $this->belongsTo('\Webpatser\Countries', 'id', 'country_id');
+	}
+
 }

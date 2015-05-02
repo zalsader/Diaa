@@ -18,7 +18,6 @@ class CreateCollaborationsTable extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('collaboration_type_id')->unsigned();
-			$table->foreign('collaboration_type_id')->references('id')->on('collaboration_types');
 			$table->text('content');
 			$table->integer('parent_id')->unsigned()->nullable();
 			$table->integer('lft')->nullable();

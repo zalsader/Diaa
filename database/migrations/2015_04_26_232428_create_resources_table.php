@@ -25,7 +25,6 @@ class CreateResourcesTable extends Migration {
 			$table->dateTime('released_on');
 			$table->integer('topic_id')->unsigned()->nullable();
 			$table->integer('resource_type_id')->unsigned();
-			$table->foreign('resource_type_id')->references('id')->on('resource_types');
 		});
 	}
 

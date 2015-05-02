@@ -150,6 +150,7 @@ return [
 		 */
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Baum\Providers\BaumServiceProvider',
+		'Webpatser\Countries\CountriesServiceProvider',
 
 	],
 
@@ -199,6 +200,11 @@ return [
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
+
+		/*
+		* vendor
+		*/
+		'Countries' => 'Webpatser\Countries\CountriesFacade',
 
 	],
 

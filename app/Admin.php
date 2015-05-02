@@ -11,7 +11,7 @@ class Admin extends User {
   function __construct($attributes = array())
   {
     parent::__construct($attributes);
-    $admin_role = Role::byName('admin')->first();
+    $admin_role = Role::whereName('admin')->first();
     $this->attachRole($admin_role);
   }
 }
