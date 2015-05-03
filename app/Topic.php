@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Topic extends Model {
-
+  
 	protected $fillable = ["title", "released_on"];
 	protected $dates = ["released_on"];
 

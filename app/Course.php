@@ -3,9 +3,7 @@
 use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model {
-
-	//
-	protected $fillable = ['name', 'starts_on', 'ends_on', 'description'];
+	protected $fillable = ['name', 'starts_on', 'ends_on', 'description', 'permalink'];
 	protected $dates = ['starts_on', 'ends_on'];
 
 	public function students()
@@ -30,7 +28,7 @@ class Course extends Model {
 
 	public function topics()
 	{
-		return $this->hasMany('\App\Topics');
+		return $this->hasMany('\App\Topic');
 	}
 
 	public function categories()

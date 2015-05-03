@@ -152,6 +152,7 @@ return [
 		'Baum\Providers\BaumServiceProvider',
 		'Webpatser\Countries\CountriesServiceProvider',
 		'Kris\LaravelFormBuilder\FormBuilderServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
 
 	],
 
@@ -200,14 +201,14 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
 
 		/*
 		* vendor Facades
 		*/
+		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
+		'Html'      => 'Illuminate\Html\HtmlFacade',
 		'Countries' => 'Webpatser\Countries\CountriesFacade',
-		'FormBuilder' => 'Kris\LaravelFormBuilder\Facades\FormBuilder'
-
+		'FormBuilder' => 'Kris\LaravelFormBuilder\Facades\FormBuilder',
 	],
 
 ];
