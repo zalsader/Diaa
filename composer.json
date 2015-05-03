@@ -11,7 +11,8 @@
 		"baum/baum": "~1.1",
 		"predis/predis": "1.1.*@dev",
 		"umpirsky/country-list": "dev-master",
-		"webpatser/laravel-countries": "dev-master"
+		"webpatser/laravel-countries": "dev-master",
+		"kris/laravel-form-builder": "~1.4"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

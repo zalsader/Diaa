@@ -151,6 +151,7 @@ return [
 		'Zizaco\Entrust\EntrustServiceProvider',
 		'Baum\Providers\BaumServiceProvider',
 		'Webpatser\Countries\CountriesServiceProvider',
+		'Kris\LaravelFormBuilder\FormBuilderServiceProvider',
 
 	],
 
@@ -202,9 +203,10 @@ return [
 		'Entrust' 	=> 'Zizaco\Entrust\EntrustFacade',
 
 		/*
-		* vendor
+		* vendor Facades
 		*/
 		'Countries' => 'Webpatser\Countries\CountriesFacade',
+		'FormBuilder' => 'Kris\LaravelFormBuilder\Facades\FormBuilder'
 
 	],
 
