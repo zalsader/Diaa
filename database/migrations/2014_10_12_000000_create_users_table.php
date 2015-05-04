@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration {
 			$table->integer('parent_id')->unsigned()->nullable();
 			$table->string('type');
 			$table->integer('country_id')->unsigned();
+			$table->text('about');
 			$table->rememberToken();
 			$table->timestamps();
 		});

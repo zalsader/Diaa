@@ -6,14 +6,19 @@ class Course extends Model {
 	protected $fillable = ['name', 'starts_on', 'ends_on', 'description', 'permalink'];
 	protected $dates = ['starts_on', 'ends_on'];
 
+	public function users()
+	{
+		return $this->belongsToMany('\App\User');
+	}
+
 	public function students()
 	{
-		return $this->belongsToMany('\App\Student', 'course_user', 'course_id', 'user_id');
+		return $this->users()->students();
 	}
 
   public function instructors()
   {
-  	return $this->belongsToMany('\App\Instructor', 'course_user', 'course_id', 'user_id');
+  	return $this->users()->instructors();
   }
 
   public function courseVideo()

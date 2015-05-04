@@ -6,7 +6,6 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-		"phaza/single-table-inheritance": "1.0.*",
 		"zizaco/entrust": "dev-laravel-5",
 		"baum/baum": "~1.1",
 		"predis/predis": "1.1.*@dev",

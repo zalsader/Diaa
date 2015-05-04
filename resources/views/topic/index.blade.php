@@ -41,11 +41,11 @@
           </li>
           <li class="course-data">
             <span class="icon icon-038"></span>
-            <span class="pull-right">{{ $course->topics()->count() }}</span>
+            <span class="pull-right">{{ $course->topics()->count().' Topics' }}</span>
           </li>
           <li class="course-data">
             <span class="icon icon-006"></span>
-            <span class="pull-right">{{ /*$course->students()->count()*/"" }}</span>
+            <span class="pull-right">{{ $course->students()->count().' Students' }}</span>
           </li>
         </ul>
         <p class="text-center share">
