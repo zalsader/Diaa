@@ -8,9 +8,9 @@ class courseForm extends Form
     {
         $this
         ->add('name', 'text')
+        ->add('permalink', 'text')
         ->add('description', 'textarea')
         ->add('instructor', 'text')
-        ->add('permalink', 'text')
         ->add('starts_on', 'date',[
                 'default_value' => date("Y-m-d")
             ])

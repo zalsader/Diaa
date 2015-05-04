@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Course;
+use App\Category;
 
 use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Form;
@@ -20,7 +21,8 @@ class CourseController extends Controller {
 
 
         $courses = Course::all();
-        return view('course.index',compact('courses'));
+				$categories = Category::all();
+        return view('course.index',compact('courses', 'categories'));
 	//
 	}
 

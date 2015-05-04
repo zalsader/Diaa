@@ -33,7 +33,7 @@ class CourseTopicController extends Controller {
         $course = Course::where('permalink',$permalink)->firstOrFail();
         $form = $formBuilder->create('App\Forms\TopicForm', [
             'method' => 'POST',
-            'url' => route('course.topic.store')
+            'url' => route('course.topic.store', $permalink)
         ])->add('course_id','hidden',[
             'default_value' => $course->id
         ]);
@@ -53,8 +53,7 @@ class CourseTopicController extends Controller {
 				$course = Course::wherePermalink($permalink)->firstOrFail();
 				$topic = new Topic($request->all());
 				$course->topics()->save($topic);
-        return redirect('course', $permalink);
-        //
+        return redirect()->route('course.show', $permalink);
     }
 
     /**
@@ -69,7 +68,6 @@ class CourseTopicController extends Controller {
 		  $topic = $course->topics()->findOrFail($id);
 
         return view('topic.show',compact('topic'));
-        //
     }
 
     /**
@@ -85,7 +83,7 @@ class CourseTopicController extends Controller {
 
         $form = $formBuilder->create('App\Forms\TopicForm', [
             'method' => 'PUT',
-            'url' => route('topic.update',$id),
+            'url' => route('course.topic.update',[$permalink, $id]),
             'model'=>$topic
         ])
             ->remove('Create')
@@ -94,7 +92,7 @@ class CourseTopicController extends Controller {
             ]);
         $deleteForm = $formBuilder->create('App\Forms\DeleteForm', [
             'method' => 'DELETE',
-            'url' => route('topic.destroy',$topic->id)
+            'url' => route('course.topic.destroy',$permalink, $id)
 
         ]);
         return view('topic.edit',compact('form','deleteForm','permalink'));

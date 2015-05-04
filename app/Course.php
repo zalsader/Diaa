@@ -18,12 +18,12 @@ class Course extends Model {
 
   public function courseVideo()
   {
-  	return $this->has_one('\App\Resource', 'id', 'video_resource_id');
+  	return $this->hasOne('\App\Resource', 'id', 'video_resource_id');
   }
 
 	public function courseImage()
 	{
-		return $this->has_one('\App\Resourse', 'id', 'image_reference_id');
+		return $this->hasOne('\App\Resource', 'id', 'img_resource_id');
 	}
 
 	public function topics()
@@ -34,5 +34,10 @@ class Course extends Model {
 	public function categories()
 	{
 		return $this->belongsToMany('\App\Category');
+	}
+
+	public function getExcerptAttribute()
+	{
+		return $this->description; // TODO
 	}
 }

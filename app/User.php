@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $table = 'users';
 	protected static $singleTableTypeField = 'type';
-  protected static $singleTableSubclasses = ['Student', 'ParentAccount', 'Instructor', 'Admin'];
+  protected static $singleTableSubclasses = ['\App\Student', '\App\ParentAccount', '\App\Instructor', '\App\Admin'];
 
 	/**
 	 * The attributes that are mass assignable.
