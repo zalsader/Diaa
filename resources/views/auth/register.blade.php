@@ -88,6 +88,16 @@
 						</div>
 
 						<div class="form-group">
+							<label class="col-md-4 control-label">Register As:</label>
+							<div class="col-md-6">
+								<select class="form-control" name="type" value="{{ old('type') }}">
+									<option value="student">Student</option>
+									<option value="parent">Parent</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
 								<button type="submit" class="btn btn-primary">
 									Register
