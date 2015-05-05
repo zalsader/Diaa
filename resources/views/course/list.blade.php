@@ -4,7 +4,7 @@
     @if($course->courseImage != null)
     <a href="{{ route('course.show', $course->permalink) }}"><img src="{{ $course->courseImage->URI }}" alt="" class="img-responsive"></a>
     @else
-    <a href="{{ route('course.show', $course->permalink) }}"><img src="./Smartway - HTML Template_files/course01.jpg" alt="" class="img-responsive"></a>
+    <a href="{{ route('course.show', $course->permalink) }}"><img src="{{asset('/image/course01.jpg')}}" alt="" class="img-responsive"></a>
     @endif
   </div>
   <div class="col-sm-8">

@@ -9,7 +9,7 @@
 		<title>
 			@yield('title', 'Diaa Educational Platform')
 		</title>
-		<!-- <link rel="shortcut icon" href="/images/favicon.png"> -->
+		<!-- <link rel="shortcut icon" href="/image/favicon.png"> -->
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -41,7 +41,7 @@
 							<span class="icon-bar"></span>
 							<span class="icon-bar"></span>
 						</button>
-						<a href="#" class="navbar-brand"><img src="./Smartway - HTML Template_files/logo.png" alt="Smartway - HTML Template" class="img-responsive logo"></a>
+						<a href="#" class="navbar-brand"><img src="{{asset('/image/logo.png')}}" alt="Diaa Educational Platform" class="img-responsive logo"></a>
 					</div>
 					<nav class="navbar-collapse collapse">
 						<ul class="nav navbar-nav navbar-right">
@@ -154,7 +154,7 @@
 	<script src="{{ asset('js/jquery.fancybox.js') }}"></script>
 
 	<!-- ImagesLoaded Plugin -->
-	<script src="{{ asset('js/imagesloaded.pkgd.min.js') }}"></script>
+	<script src="{{ asset('js/imageloaded.pkgd.min.js') }}"></script>
 
 	<!-- Masonry Plugin -->
 	<script src="{{ asset('js/masonry.pkgd.min.js') }}"></script>

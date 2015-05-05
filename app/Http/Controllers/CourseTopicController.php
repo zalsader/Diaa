@@ -19,7 +19,8 @@ class CourseTopicController extends Controller {
         $course = Course::where('permalink',$permalink)->firstOrFail();
 
         $topics = $course->topics;
-        return view('topic.index',compact('topics'));
+
+        return view('topic.index',compact('topics', 'course'));
 		//
 	}
 
@@ -67,7 +68,7 @@ class CourseTopicController extends Controller {
 			$course = Course::wherePermalink($permalink)->firstOrFail();
 		  $topic = $course->topics()->findOrFail($id);
 
-        return view('topic.show',compact('topic'));
+        return view('topic.show',compact('topic', 'course'));
     }
 
     /**

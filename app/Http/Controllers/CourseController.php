@@ -4,6 +4,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Course;
+use App\Resourse;
+use App\ResourceType;
 use App\Category;
 
 use Illuminate\Http\Request;
@@ -33,9 +35,13 @@ class CourseController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-
-        Course::create($request->all()) ;
-        return redirect('course/create');
+		$data = $request->all();
+    $course = Course::create($data);
+		$videoType = ResourceType::whereName('informational')->whereMedium('video')->first();
+		$resource = new Resource($data['courseVideo']['URI']);
+		$resource->types()->attach($videotype);
+		$course->courseVideo = $resource;
+    return redirect()->route('course.show', $course->permalink);
 		//
 	}
 

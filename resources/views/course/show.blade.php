@@ -16,7 +16,7 @@
   @foreach($course->instructors()->get() as $instructor)
   <div class="teacher row">
     <div class="col-sm-12">
-      <img src="/Smartway - HTML Templatecourse_files/thumb-teacher.jpg" alt="" class="pull-left">
+      <img src="{{ asset('/image/thumb-teacher.jpg') }}" alt="" class="pull-left">
       <h5>{{ $instructor->full_name }}</h5>
       <p>{{ $instructor->educational_degree }}</p>
     </div>
@@ -27,8 +27,12 @@
   <a href="#">Read More <i class="fa fa-angle-right"></i></a></p>
   <hr>
   @endforeach
-
+  <a href=""></a>
 </div>
+@foreach($course->topics as $topic)
+{{$topic->title}}
+@endforeach
+
 
 <!-- ==== COURSES END == -->
 
@@ -43,7 +47,7 @@
         @if($course->courseImage != null)
         <a href="{{ route('course.show', $course->permalink) }}"><img src="{{ $course->courseImage->URI }}" alt="" class="img-responsive"></a>
         @else
-        <a href="{{ route('course.show', $course->permalink) }}"><img src="/Smartway - HTML Template_files/course01.jpg" alt="" class="img-responsive"></a>
+        <a href="{{ route('course.show', $course->permalink) }}"><img src="{{asset('/image/course01.jpg')}}" alt="" class="img-responsive"></a>
         @endif
       </li>
       <li class="course-data">

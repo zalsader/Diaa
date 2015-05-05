@@ -17,10 +17,10 @@ class courseForm extends Form
         ->add('ends_on', 'date',[
             'default_value' => date("Y-m-d")
         ])
-        ->add('video_resource_id', 'text',[
+        ->add('courseVideo[URI]', 'text',[
           'label' => 'Course Video Link'
           ])
-        ->add('img_resource_id', 'file', [
+        ->add('courseImage[URI]', 'file', [
             'label' => 'Course Image',
             'attr' => ['accept' => 'image/*']
         ])

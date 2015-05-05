@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Course extends Model {
 	protected $fillable = ['name', 'starts_on', 'ends_on', 'description', 'permalink'];
@@ -44,5 +45,10 @@ class Course extends Model {
 	public function getExcerptAttribute()
 	{
 		return $this->description; // TODO
+	}
+
+	public function scopeLatest($query)
+	{
+		return $query->where('starts_on', '>', Carbon::now()->toDateTimeString());
 	}
 }
