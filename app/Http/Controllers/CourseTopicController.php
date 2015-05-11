@@ -1,14 +1,16 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\TopicRequest;
 use App\Http\Controllers\Controller;
 use App\Topic;
 use App\Course;
-use Illuminate\Http\Request;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
 class CourseTopicController extends Controller {
-
+/* TODO
+check if current user is registered
+*/
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -16,11 +18,9 @@ class CourseTopicController extends Controller {
 	 */
 	public function index($permalink)
 	{
-        $course = Course::where('permalink',$permalink)->firstOrFail();
-
+        $course = Course::wherePermalink($permalink)->firstOrFail();
         $topics = $course->topics;
-        return view('topic.index',compact('topics'));
-		//
+        return view('topic.index',compact('topics', 'course'));
 	}
 
 	/**
@@ -28,12 +28,12 @@ class CourseTopicController extends Controller {
 	 *
 	 * @return Response
 	 */
-    public function create(FormBuilder $formBuilder,$permalink)
+    public function create($permalink)
     {
-        $course = Course::where('permalink',$permalink)->firstOrFail();
-        $form = $formBuilder->create('App\Forms\TopicForm', [
+        $course = Course::wherePermalink($permalink)->firstOrFail();
+        $form = \FormBuilder::create('App\Forms\TopicForm', [
             'method' => 'POST',
-            'url' => route('course.topic.store')
+            'url' => route('course.topic.store', $permalink)
         ])->add('course_id','hidden',[
             'default_value' => $course->id
         ]);
@@ -48,13 +48,12 @@ class CourseTopicController extends Controller {
      *
      * @return Response
      */
-    public function store($permalink, Request $request)
+    public function store($permalink, TopicRequest $request)
     {
 				$course = Course::wherePermalink($permalink)->firstOrFail();
 				$topic = new Topic($request->all());
 				$course->topics()->save($topic);
-        return redirect('course', $permalink);
-        //
+        return redirect()->route('course.show', $permalink);
     }
 
     /**
@@ -67,9 +66,7 @@ class CourseTopicController extends Controller {
     {
 			$course = Course::wherePermalink($permalink)->firstOrFail();
 		  $topic = $course->topics()->findOrFail($id);
-
-        return view('topic.show',compact('topic'));
-        //
+        return redirect()->route('course.topic.lecture.index', [$permalink,$id]);//view('topic.show',compact('topic', 'course'));
     }
 
     /**
@@ -78,23 +75,23 @@ class CourseTopicController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($permalink,$id,FormBuilder $formBuilder)
+    public function edit($permalink,$id)
     {
 			$course = Course::wherePermalink($permalink)->firstOrFail();
 			$topic = $course->topics()->findOrFail($id);
 
-        $form = $formBuilder->create('App\Forms\TopicForm', [
+        $form = \FormBuilder::create('App\Forms\TopicForm', [
             'method' => 'PUT',
-            'url' => route('topic.update',$id),
+            'url' => route('course.topic.update',[$permalink, $id]),
             'model'=>$topic
         ])
             ->remove('Create')
             ->add('Update', 'submit', [
                 'attr' => ['class' => 'btn btn-primary']
             ]);
-        $deleteForm = $formBuilder->create('App\Forms\DeleteForm', [
+        $deleteForm = \FormBuilder::create('App\Forms\DeleteForm', [
             'method' => 'DELETE',
-            'url' => route('topic.destroy',$topic->id)
+            'url' => route('course.topic.destroy',$permalink, $id)
 
         ]);
         return view('topic.edit',compact('form','deleteForm','permalink'));
@@ -107,14 +104,12 @@ class CourseTopicController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($permalink,$id,Request $request)
+    public function update($permalink,$id,TopicRequest $request)
     {
 				$course = Course::wherePermalink($permalink)->firstOrFail();
 				$topic = $course->topics()->findOrFail($id);
         $topic->update($request->all());
-        return redirect('topic');
-
-        //
+        return redirect()->route('course.topic.show', [$permalink, $id]);
     }
 
     /**
@@ -128,7 +123,7 @@ class CourseTopicController extends Controller {
 				$course = Course::wherePermalink($permalink)->firstOrFail();
         $topic = $course->topics()->findOrFail($id);
         $topic->delete();
-        return redirect('topic');
+				return redirect()->route('course.topic.show', [$permalink, $id]);
         //
     }
 

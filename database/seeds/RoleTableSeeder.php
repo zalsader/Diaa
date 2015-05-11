@@ -10,7 +10,7 @@ class RoleTableSeeder extends Seeder {
 	private $insertList = [
 		['name' => 'admin','display_name' => 'Admin', 'description' => 'Website Admin'],
 		['name' => 'student','display_name' => 'Student', 'description' => 'The learner'],
-		['name' => 'parentAccount','display_name' => 'Parent', 'description' => 'Supervises a student'],
+		['name' => 'parent','display_name' => 'Parent', 'description' => 'Supervises a student'],
 		['name' => 'instructor','display_name' => 'Instructor', 'description' => 'Manages a course'],
 	];
 
@@ -39,7 +39,7 @@ class RoleTableSeeder extends Seeder {
 				Permission::whereName('add_topics')->first(),
 			]);
 
-			Role::whereName('parentAccount')->first()->attachPermissions([
+			Role::whereName('parent')->first()->attachPermissions([
 				Permission::whereName('view_child_progress')->first(),
 				Permission::whereName('enroll_in_course')->first(),
 				Permission::whereName('add_child')->first(),

@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class CreateCourseRequest extends Request {
+class TopicRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,13 +22,8 @@ class CreateCourseRequest extends Request {
 	public function rules()
 	{
 		return [
-			//
-             'name'=>'required|min:5',
-             'starts_on'=>'required|date',
-             'ends_on'=>'required|date',
-             'description'=>'required',
-             'video_resource_id'=>'required'
+            'title'=>'required|min:5',
+            'released_on'=>'required|date',
 		];
 	}
-
 }

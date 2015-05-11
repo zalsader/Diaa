@@ -10,7 +10,7 @@ class Resource extends Node {
 
 	public function type()
 	{
-		return $this->belongsTo('\App\ResouceType');
+		return $this->belongsTo('\App\ResourceType');
 	}
 
 	public function problems()

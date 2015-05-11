@@ -1,29 +1,35 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Course extends Model {
 	protected $fillable = ['name', 'starts_on', 'ends_on', 'description', 'permalink'];
 	protected $dates = ['starts_on', 'ends_on'];
 
+	public function users()
+	{
+		return $this->belongsToMany('\App\User');
+	}
+
 	public function students()
 	{
-		return $this->belongsToMany('\App\Student', 'course_user', 'course_id', 'user_id');
+		return $this->users()->students();
 	}
 
   public function instructors()
   {
-  	return $this->belongsToMany('\App\Instructor', 'course_user', 'course_id', 'user_id');
+  	return $this->users()->instructors();
   }
 
   public function courseVideo()
   {
-  	return $this->has_one('\App\Resource', 'id', 'video_resource_id');
+  	return $this->hasOne('\App\Resource', 'id', 'video_resource_id');
   }
 
 	public function courseImage()
 	{
-		return $this->has_one('\App\Resourse', 'id', 'image_reference_id');
+		return $this->hasOne('\App\Resource', 'id', 'img_resource_id');
 	}
 
 	public function topics()
@@ -34,5 +40,31 @@ class Course extends Model {
 	public function categories()
 	{
 		return $this->belongsToMany('\App\Category');
+	}
+
+	public function getExcerptAttribute()
+	{
+		return $this->description; // TODO
+	}
+
+	public function scopeLatest($query)
+	{
+		return $query->where('starts_on', '>', Carbon::now()->toDateTimeString());
+	}
+
+	public function scopeCategory($query, $category)
+	{
+		return $query->whereHas('categories', function($q) use($category){
+			return $q->whereName($category);
+		});
+	}
+	public function scopeCategoryList($query, $categories)
+	{
+		foreach ($categories as $category) {
+			$query = $query->orWhere(function($qu) use($category){
+				return $qu->category($category);
+			});
+		}
+		return $query;
 	}
 }

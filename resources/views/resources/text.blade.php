@@ -1,0 +1,3 @@
+<div>
+{!! $resource->uri !!}
+</div>

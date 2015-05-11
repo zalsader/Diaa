@@ -8,7 +8,11 @@ class Category extends Model {
 
 	public function courses()
 	{
-		return $this->belongsToMany('\App\Courses');
+		return $this->belongsToMany('\App\Course');
 	}
 
+	public function getCountAttribute()
+	{
+		return $this->courses()->count();
+	}
 }

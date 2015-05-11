@@ -1,11 +1,15 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\CourseRequest;
 use App\Http\Controllers\Controller;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Course;
+use App\Resourse;
+use App\ResourceType;
+use App\Category;
 
-use Illuminate\Http\Request;
+use Request;
 use Kris\LaravelFormBuilder\Form;
 
 class CourseController extends Controller {
@@ -17,10 +21,15 @@ class CourseController extends Controller {
 	 */
 	public function index()
 	{
+				if (Request::has('category')){//TODO
 
-
-        $courses = Course::all();
-        return view('course.index',compact('courses'));
+					$category = Category::whereName(Request::input('category'))->firstOrFail();
+					$courses = Course::categoryList([$category->name])->paginate(3)->appends(['category'=>$category->name]);
+				} else{
+					$courses = Course::paginate(3);
+				}
+				$categories = Category::all();
+        return view('course.index',compact('courses', 'categories'));
 	//
 	}
 
@@ -29,11 +38,15 @@ class CourseController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(CourseRequest $request)
 	{
-
-        Course::create($request->all()) ;
-        return redirect('course/create');
+		$data = $request->all();
+    $course = Course::create($data);
+		$videoType = ResourceType::whereName('informational')->whereMedium('video')->first();
+		$resource = new Resource($data['courseVideo']['URI']);
+		$resource->types()->attach($videotype);
+		$course->courseVideo = $resource;
+    return redirect()->route('course.show', $course->permalink);
 		//
 	}
 
@@ -42,10 +55,10 @@ class CourseController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function create(FormBuilder $formBuilder)
+	public function create()
 	{
 
-        $form = $formBuilder->create('App\Forms\CourseForm', [
+        $form = \FormBuilder::create('App\Forms\CourseForm', [
             'method' => 'POST',
             'url' => route('course.store')
         ]);
@@ -74,12 +87,12 @@ class CourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(FormBuilder $formBuilder,$permalink)
+	public function edit($permalink)
 
 	{
          $course = Course::wherePermalink($permalink)->firstOrFail();
 
-        $form = $formBuilder->create('App\Forms\CourseForm', [
+        $form = \FormBuilder::create('App\Forms\CourseForm', [
             'method' => 'PUT',
             'url' => route('course.update',$permalink),
             'model'=>$course
@@ -88,7 +101,7 @@ class CourseController extends Controller {
             ->add('Update', 'submit', [
                 'attr' => ['class' => 'btn btn-primary']
             ]);
-        $deleteForm = $formBuilder->create('App\Forms\DeleteForm', [
+        $deleteForm = \FormBuilder::create('App\Forms\DeleteForm', [
             'method' => 'DELETE',
             'url' => route('course.destroy',$course->permalink)
 
@@ -103,13 +116,11 @@ class CourseController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($permalink,Request  $request)
+	public function update($permalink, CourseRequest $request)
 	{
-        $course = Course::wherePermalink($permalink)->firstOrFail();
-
-       $course->update($request->all());
-        return redirect('course');
-
+      $course = Course::wherePermalink($permalink)->firstOrFail();
+      $course->update($request->all());
+      return redirect('course');
 	}
 
 	/**
@@ -121,7 +132,6 @@ class CourseController extends Controller {
 	public function destroy($permalink)
 	{
         $course = Course::wherePermalink($permalink)->firstOrFail();
-
         $course->delete();
         return redirect('course');
 	//
