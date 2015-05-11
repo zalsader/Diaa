@@ -5,7 +5,7 @@
 
     {!! form($form) !!}
 
-@if(Auth::user()->can('delete_course'))
+@if(Auth::user()->can('delete_topic'))
     {!! form($deleteForm) !!}
 @endif
 @endsection

@@ -2,25 +2,30 @@
 
 use App\Http\Requests;
 use App\Http\Requests\TopicRequest;
+use App\Http\Requests\LectureRequest;
 use App\Http\Controllers\Controller;
 use App\Topic;
 use App\Course;
+use App\Resource;
+use App\ResourceType;
 use Kris\LaravelFormBuilder\Form;
 use Kris\LaravelFormBuilder\FormBuilder;
-class CourseTopicController extends Controller {
-/* TODO
-check if current user is registered
-*/
+class CourseTopicLectureController extends Controller {
+	/* TODO
+	check if current user is registered
+	complete this
+	*/
 	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return Response
 	 */
-	public function index($permalink)
+	public function index($permalink, $topic_id)
 	{
         $course = Course::wherePermalink($permalink)->firstOrFail();
-        $topics = $course->topics;
-        return view('topic.index',compact('topics', 'course'));
+				$topic = $course->topics()->findOrFail($topic_id);
+				$resources = $topic->resources()->paginate(1);
+        return view('lecture.index',compact('topic', 'course', 'resources'));
 	}
 
 	/**
@@ -28,18 +33,19 @@ check if current user is registered
 	 *
 	 * @return Response
 	 */
-    public function create($permalink)
+    public function create($permalink, $topic_id)
     {
         $course = Course::wherePermalink($permalink)->firstOrFail();
-        $form = \FormBuilder::create('App\Forms\TopicForm', [
+				$topic = $course->topics()->findOrFail($topic_id);
+        $form = \FormBuilder::create('App\Forms\ResourceForm', [
             'method' => 'POST',
-            'url' => route('course.topic.store', $permalink)
+            'url' => route('course.topic.lecture.store', [$permalink, $topic_id])
         ])->add('course_id','hidden',[
             'default_value' => $course->id
         ]);
 
 
-        return view('topic.create', compact('form'));
+        return view('lecture.create', compact('form'));
         //
     }
 
@@ -48,12 +54,16 @@ check if current user is registered
      *
      * @return Response
      */
-    public function store($permalink, TopicRequest $request)
+    public function store($permalink, $topic_id, LectureRequest $request)
     {
 				$course = Course::wherePermalink($permalink)->firstOrFail();
-				$topic = new Topic($request->all());
-				$course->topics()->save($topic);
-        return redirect()->route('course.show', $permalink);
+				$topic = $course->topics()->findOrFail($topic_id);
+				$resource = Resource::create($request->all());
+				$type = ResourceType::whereName($request->input('rtype'))->whereMedium($request->input('rmedium'))->first();
+				$resource->resource_type_id = $type->id;
+				$resource->topic_id = $topic->id;
+				$resource->save();
+        return redirect()->route('course.topic.show', [$permalink, $topic_id]);
     }
 
     /**
@@ -66,7 +76,7 @@ check if current user is registered
     {
 			$course = Course::wherePermalink($permalink)->firstOrFail();
 		  $topic = $course->topics()->findOrFail($id);
-        return redirect()->route('course.topic.lecture.index', [$permalink,$id]);//view('topic.show',compact('topic', 'course'));
+      return view('topic.show',compact('topic', 'course'));
     }
 
     /**

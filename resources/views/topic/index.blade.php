@@ -10,7 +10,7 @@
     <div class="col-sm-8">
       <h3>Topics</h3>
       @foreach($topics as $topic)
-      <h5 class="lesson-title"><a href="{{ route(course.topic.show, $course->permalink, $topic->id)}}">{{ $topic->title }}</a></h5>
+      <h5 class="lesson-title"><a href="{{ route('course.topic.show', [$course->permalink, $topic->id])}}">{{ $topic->title }}</a></h5>
       <div class="meta">
         <span><i class="fa fa-clock-o"></i>{{ 'Released on:'.$topic->released_on  }}</span>
       </div>

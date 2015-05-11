@@ -51,4 +51,20 @@ class Course extends Model {
 	{
 		return $query->where('starts_on', '>', Carbon::now()->toDateTimeString());
 	}
+
+	public function scopeCategory($query, $category)
+	{
+		return $query->whereHas('categories', function($q) use($category){
+			return $q->whereName($category);
+		});
+	}
+	public function scopeCategoryList($query, $categories)
+	{
+		foreach ($categories as $category) {
+			$query = $query->orWhere(function($qu) use($category){
+				return $qu->category($category);
+			});
+		}
+		return $query;
+	}
 }

@@ -2,7 +2,7 @@
 
 use App\Http\Requests\Request;
 
-class AddTopicRequest extends Request {
+class CourseRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -11,7 +11,7 @@ class AddTopicRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+			return true;
 	}
 
 	/**
@@ -22,11 +22,11 @@ class AddTopicRequest extends Request {
 	public function rules()
 	{
 		return [
-
-            'title'=>'required|min:5',
-            'released_on'=>'required|date',
-
-			//
+             'name'=>'required|min:5',
+             'starts_on'=>'required|date',
+             'ends_on'=>'required|date',
+             'description'=>'required',
+             'video_resource_id'=>'required'
 		];
 	}
 
